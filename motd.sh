@@ -1,23 +1,23 @@
 #!/bin/bash
-# UnixNodes Advanced MOTD Installer
+# NebulonCloud Advanced MOTD Installer
 
-echo "🔧 Installing Custom MOTD..."
+echo "🔧 Instalando MOTD Personalizado..."
 
-# Disable default Ubuntu MOTD messages
+# Desativar mensagens padrão do MOTD do Ubuntu
 chmod -x /etc/update-motd.d/* 2>/dev/null
 
-# Create dynamic stats MOTD script
-cat << 'EOF' > /etc/update-motd.d/00-unixnodes
+# Criar script dinâmico de estatísticas para o MOTD
+cat << 'EOF' > /etc/update-motd.d/00-nebuloncloud
 #!/bin/bash
 
-# Colors
+# Cores
 CYAN="\e[38;5;45m"
 GREEN="\e[38;5;82m"
 YELLOW="\e[38;5;220m"
 BLUE="\e[38;5;51m"
 RESET="\e[0m"
 
-# Stats
+# Estatísticas
 LOAD=$(uptime | awk -F 'load average:' '{ print $2 }' | awk '{ print $1 }')
 MEM_TOTAL=$(free -m | awk '/Mem:/ {print $2}')
 MEM_USED=$(free -m | awk '/Mem:/ {print $3}')
@@ -30,34 +30,32 @@ USERS=$(who | wc -l)
 IP=$(hostname -I | awk '{print $1}')
 UPTIME=$(uptime -p | sed 's/up //')
 
-# Header + Logo
-echo -e "${CYAN}┌──────────────────────────────────────────────────────────────┐"
-echo -e "│  _    _           _           _   _           _              │"
-echo -e "│ | |  | |         (_)         | \\ | |         | |             │"
-echo -e "│ | |  | |  _ __    _  __  __  |  \\| | ___   __| | ___  ___    │"
-echo -e "│ | |  | | | '_ \\  | | \\ \\/ /  | . \` |/ _ \\ / _\` |/ _ \\/ __|   │"
-echo -e "│ | |__| | | | | | | |  >  <   | |\\  | (_) | (_| |  __/\\__ \\   │"
-echo -e "│  \\____/  |_| |_| |_| /_/\\_\\  |_| \\_|\\___/ \\__,_|\\___||___/   │"
-echo -e "└──────────────────────────────────────────────────────────────┘${RESET}"
+# ASCII NebulonCloud
+echo -e "${CYAN}"
+echo " _  _  ____  ____  __  __  __    _____  _  _     ___  __    _____  __  __  ____  "
+echo "( \( )( ___)(  _ \(  )(  )(  )  (  _  )( \( )   / __)(  )  (  _  )(  )(  )(  _ \ "
+echo " )  (  )__)  ) _ < )(__)(  )(__  )(_)(  )  (   ( (__  )(__  )(_)(  )(__)(  )(_) )"
+echo "(_)\_)(____)(____/(______)(____)(_____)(_)\_)   \___)(____)(_____)(______)(____/ "
+echo -e "${RESET}\n"
 
-echo -e "${GREEN} Welcome to UnixNodes Datacenter! 🚀 ${RESET}\n"
+echo -e "${GREEN} Bem-vindo à NebulonCloud! 🚀 ${RESET}\n"
 
-# System Stats Table
-echo -e "${BLUE}📊 System Information:${RESET} (as of $(date))\n"
-printf "  ${YELLOW}CPU Load     :${RESET} %s\n" "$LOAD"
-printf "  ${YELLOW}Memory Usage :${RESET} %sMB / %sMB (%s%%)\n" "$MEM_USED" "$MEM_TOTAL" "$MEM_PERC"
-printf "  ${YELLOW}Disk Usage   :${RESET} %s / %s (%s)\n" "$DISK_USED" "$DISK_TOTAL" "$DISK_PERC"
-printf "  ${YELLOW}Processes    :${RESET} %s\n" "$PROC"
-printf "  ${YELLOW}Users Logged :${RESET} %s\n" "$USERS"
-printf "  ${YELLOW}IP Address   :${RESET} %s\n" "$IP"
-printf "  ${YELLOW}Uptime       :${RESET} %s\n\n" "$UPTIME"
+# Tabela de Informações
+echo -e "${BLUE}📊 Informações do Sistema:${RESET} (em $(date))\n"
+printf "  ${YELLOW}Carga da CPU    :${RESET} %s\n" "$LOAD"
+printf "  ${YELLOW}Uso da Memória  :${RESET} %sMB / %sMB (%s%%)\n" "$MEM_USED" "$MEM_TOTAL" "$MEM_PERC"
+printf "  ${YELLOW}Uso do Disco    :${RESET} %s / %s (%s)\n" "$DISK_USED" "$DISK_TOTAL" "$DISK_PERC"
+printf "  ${YELLOW}Processos       :${RESET} %s\n" "$PROC"
+printf "  ${YELLOW}Usuários Logados:${RESET} %s\n" "$USERS"
+printf "  ${YELLOW}Endereço IP     :${RESET} %s\n" "$IP"
+printf "  ${YELLOW}Uptime          :${RESET} %s\n\n" "$UPTIME"
 
-echo -e "${CYAN}Need help? Support is always available: support@unixnodes.xyz${RESET}"
-echo -e "Website: ${BLUE}unixnodes.xyz${RESET}"
-echo -e "${GREEN}Quality Wise — No Compromise 😄${RESET}"
+echo -e "${CYAN}Suporte via Discord: apolinarioo_${RESET}"
+echo -e "Site: ${BLUE}nebuloncloud.xyz${RESET}"
+echo -e "${GREEN}Qualidade Sempre — Sem Compromisso 😄${RESET}"
 EOF
 
-chmod +x /etc/update-motd.d/00-unixnodes
+chmod +x /etc/update-motd.d/00-nebuloncloud
 
-echo "🎉 UnixNodes MOTD Installed Successfully!"
-echo "➡ Reconnect SSH to see the new MOTD."
+echo "🎉 MOTD da NebulonCloud instalado com sucesso!"
+echo "➡ Reconecte via SSH para ver o novo MOTD."
